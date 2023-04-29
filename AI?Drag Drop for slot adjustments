@@ -1,1 +1,71 @@
+from abc import ABC, abstractmethod
 
+class Person(ABC):
+    def _init_(self, name):
+        self.name = name
+
+    @abstractmethod
+    def getDetails(self):
+        pass
+
+class Course:
+    def _init_(self, name, credits):
+        self.name = name
+        self.credits = credits
+
+class Teacher(Person):
+    def _init_(self, name, designation, yearsOfExperience):
+        super()._init_(name)
+        self.designation = designation
+        self.yearsOfExperience = yearsOfExperience
+
+    def getDetails(self):
+        return f"{self.name} ({self.designation}) with {self.yearsOfExperience} years of experience"
+
+class Classroom:
+    def _init_(self, roomNumber, capacity):
+        self.roomNumber = roomNumber
+        self.capacity = capacity
+
+class Student(Person):
+    def _init_(self, name, enrollmentNumber):
+        super()._init_(name)
+        self.enrollmentNumber = enrollmentNumber
+
+    def getDetails(self):
+        return f"{self.name} ({self.enrollmentNumber})"
+
+class Slot:
+    def _init_(self, dayOfWeek, startTime, endTime, course=None, teacher=None, classroom=None):
+        self.dayOfWeek = dayOfWeek
+        self.startTime = startTime
+        self.endTime = endTime
+        self.course = course
+        self.teacher = teacher
+        self.classroom = classroom
+
+class TimeTable:
+    def _init_(self, name, startTime, endTime):
+        self.name = name
+        self.startTime = startTime
+        self.endTime = endTime
+        self.slots = []
+
+    def addSlot(self, slot):
+        self.slots.append(slot)
+
+    def removeSlot(self, slot):
+        self.slots.remove(slot)
+
+    def dragDrop(self, slot1, slot2):
+        temp = slot1
+        slot1 = slot2
+        slot2 = temp
+
+# Creating objects
+
+maths = Course("Mathematics", 3)
+physics = Course("Physics", 3)
+chemistry = Course("Chemistry", 3)
+
+teacher1 = Teacher("John Doe", "Professor",
